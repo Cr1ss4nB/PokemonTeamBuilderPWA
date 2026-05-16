@@ -142,9 +142,37 @@
 
           <div class="card-body">
 
-            <h4 class="card-title">
-              {{ team.name }}
-            </h4>
+            <div *ngIf="!team.editing">
+
+              <h4 class="card-title">
+                {{ team.name }}
+              </h4>
+
+              <button
+                class="btn btn-sm btn-outline-dark mb-2"
+                (click)="enableEditTeam(team)"
+              >
+                Editar nombre
+              </button>
+
+            </div>
+
+            <div *ngIf="team.editing">
+
+              <input
+                type="text"
+                class="form-control mb-2"
+                [(ngModel)]="team.name"
+              >
+
+              <button
+                class="btn btn-sm btn-success"
+                (click)="saveTeamName(team)"
+              >
+                Guardar
+              </button>
+
+            </div>
 
             <p>
               Pokémon:
@@ -165,10 +193,18 @@
                     height="50"
                   >
 
-                  <span>
-                    {{ pokemon.name | titlecase }}
-                  </span>
+                  <div class="d-flex flex-column">
 
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      [value]="pokemon.nickname || (pokemon.name | titlecase)"
+                      (input)="pokemon.nickname = $any($event.target).value"
+                      (blur)="savePokemonNickname()"
+                    >
+
+                  </div>
+                  
                 </div>
 
                 <button

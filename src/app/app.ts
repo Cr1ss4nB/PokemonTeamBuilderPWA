@@ -71,7 +71,7 @@ export class App implements OnInit {
     console.log('INICIA APP');
 
     this.pokemons = await this.pokemonService.getPokemons();
-    this.filteredPokemons = this.pokemons;
+    this.filteredPokemons = [...this.pokemons];
     this.loadTeams();
 
     console.log(this.pokemons);
@@ -151,6 +151,29 @@ export class App implements OnInit {
     this.saveTeams();
   }
 
+  enableEditTeam(team: Team) {
+
+    team.editing = true;
+
+  }
+
+  saveTeamName(team: Team) {
+
+    const trimmedName = team.name.trim();
+
+    if (!trimmedName) {
+      alert('El nombre no puede estar vacío');
+      return;
+    }
+
+    team.name = trimmedName;
+
+    team.editing = false;
+
+    this.saveTeams();
+
+  }
+
   selectTeam(teamId: number) {
 
     if (this.selectedTeamId === teamId) {
@@ -213,6 +236,12 @@ export class App implements OnInit {
     );
     
     this.saveTeams();
+  }
+
+  savePokemonNickname() {
+
+    this.saveTeams();
+
   }
 
   saveTeams() {
