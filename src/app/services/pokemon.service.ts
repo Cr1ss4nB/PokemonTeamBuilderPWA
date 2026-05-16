@@ -9,7 +9,7 @@ import { Pokemon } from '../interfaces/pokemon.interface';
 })
 export class PokemonService {
 
-  private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+  private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1025';
 
   constructor(private http: HttpClient) {}
 
