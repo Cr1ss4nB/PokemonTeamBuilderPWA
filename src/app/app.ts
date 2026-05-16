@@ -72,6 +72,7 @@ export class App implements OnInit {
 
     this.pokemons = await this.pokemonService.getPokemons();
     this.filteredPokemons = this.pokemons;
+    this.loadTeams();
 
     console.log(this.pokemons);
 
@@ -130,7 +131,7 @@ export class App implements OnInit {
     this.teams.push(newTeam);
 
     this.newTeamName = '';
-
+    this.saveTeams();
   }
 
   deleteTeam(teamId: number) {
@@ -147,6 +148,7 @@ export class App implements OnInit {
       team => team.id !== teamId
     );
 
+    this.saveTeams();
   }
 
   selectTeam(teamId: number) {
@@ -190,7 +192,7 @@ export class App implements OnInit {
     }
 
     team.pokemons.push(pokemon);
-
+    this.saveTeams();
   }
 
   removePokemonFromTeam(
@@ -209,6 +211,30 @@ export class App implements OnInit {
     team.pokemons = team.pokemons.filter(
       pokemon => pokemon.id !== pokemonId
     );
+    
+    this.saveTeams();
+  }
+
+  saveTeams() {
+
+    localStorage.setItem(
+      'pokemonTeams',
+      JSON.stringify(this.teams)
+    );
+
+  }
+
+  loadTeams() {
+
+    const savedTeams = localStorage.getItem(
+      'pokemonTeams'
+    );
+
+    if (savedTeams) {
+
+      this.teams = JSON.parse(savedTeams);
+
+    }
 
   }
 }
