@@ -25,6 +25,8 @@ export class App implements OnInit {
 
     selectedTeamId: number | null = null;
 
+    db!: IDBDatabase;
+
     searchText: string = '';
 
     selectedType: string = '';
@@ -73,6 +75,7 @@ export class App implements OnInit {
     this.pokemons = await this.pokemonService.getPokemons();
     this.filteredPokemons = [...this.pokemons];
     this.loadTeams();
+    this.initDB();
 
     console.log(this.pokemons);
 
@@ -132,6 +135,7 @@ export class App implements OnInit {
 
     this.newTeamName = '';
     this.saveTeams();
+    this.saveTeamsToIndexedDB();
   }
 
   deleteTeam(teamId: number) {
@@ -171,7 +175,7 @@ export class App implements OnInit {
     team.editing = false;
 
     this.saveTeams();
-
+    this.saveTeamsToIndexedDB();
   }
 
   selectTeam(teamId: number) {
@@ -216,6 +220,7 @@ export class App implements OnInit {
 
     team.pokemons.push(pokemon);
     this.saveTeams();
+    this.saveTeamsToIndexedDB();
   }
 
   removePokemonFromTeam(
@@ -236,6 +241,7 @@ export class App implements OnInit {
     );
     
     this.saveTeams();
+    this.saveTeamsToIndexedDB();
   }
 
   savePokemonNickname() {
@@ -264,6 +270,68 @@ export class App implements OnInit {
       this.teams = JSON.parse(savedTeams);
 
     }
+
+  }
+
+  initDB() {
+
+    const request = indexedDB.open(
+      'PokemonTeamBuilderDB',
+      1
+    );
+
+    request.onupgradeneeded = (event: any) => {
+
+      const db = event.target.result;
+
+      if (!db.objectStoreNames.contains('teams')) {
+
+        db.createObjectStore('teams', {
+          keyPath: 'id'
+        });
+
+      }
+
+    };
+
+    request.onsuccess = (event: any) => {
+
+      this.db = event.target.result;
+
+      console.log('IndexedDB conectada correctamente');
+
+    };
+
+    request.onerror = () => {
+
+      console.error('Error al conectar IndexedDB');
+
+    };
+
+  }
+
+  saveTeamsToIndexedDB() {
+
+    if (!this.db) {
+      return;
+    }
+
+    const transaction = this.db.transaction(
+      ['teams'],
+      'readwrite'
+    );
+
+    const store = transaction.objectStore('teams');
+
+    store.clear();
+
+    this.teams.forEach(team => {
+
+      store.put(team);
+
+    });
+
+    console.log('Equipos guardados en IndexedDB');
 
   }
 }
