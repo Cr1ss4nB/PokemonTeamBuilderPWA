@@ -1,21 +1,74 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { PokemonService } from './services/pokemon.service';
+import { Pokemon } from './interfaces/pokemon.interface';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
 
-  constructor(private pokemonService: PokemonService) {}
+  pokemons: Pokemon[] = [];
+
+  filteredPokemons: Pokemon[] = [];
+
+  searchText: string = '';
+
+  selectedType: string = '';
+
+  pokemonTypes: string[] = [
+    'grass',
+    'poison',
+    'fire',
+    'water',
+    'bug',
+    'normal',
+    'electric',
+    'ground',
+    'fairy',
+    'fighting',
+    'psychic',
+    'rock',
+    'ghost',
+    'ice',
+    'dragon'
+  ];
+
+  constructor(private pokemonService: PokemonService) { }
 
   async ngOnInit() {
 
-    const pokemons = await this.pokemonService.getPokemons();
+    console.log('INICIA APP');
 
-    console.log(pokemons);
+    this.pokemons = await this.pokemonService.getPokemons();
+
+    console.log(this.pokemons);
+
+    this.filteredPokemons = this.pokemons;
+
+  }
+
+  filterPokemons() {
+
+    this.filteredPokemons = this.pokemons.filter(pokemon => {
+
+      const matchesName =
+        pokemon.name
+          .toLowerCase()
+          .includes(this.searchText.toLowerCase());
+
+      const matchesType =
+        this.selectedType === '' ||
+        pokemon.types.includes(this.selectedType);
+
+      return matchesName && matchesType;
+
+    });
 
   }
 

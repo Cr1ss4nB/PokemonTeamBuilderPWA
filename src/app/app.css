@@ -1,0 +1,249 @@
+body {
+
+    background-color: #f5f1e8;
+}
+
+/* HEADER ROJO */
+
+.header-container {
+
+    background-color: #ef3340;
+
+    padding-top: 45px;
+    padding-bottom: 35px;
+
+    margin-top: 0;
+
+    width: 100%;
+}
+
+/* TITULO */
+
+.main-title {
+
+    color: #111;
+
+    font-weight: 700;
+
+    font-size: 3.5rem;
+
+    letter-spacing: 1px;
+
+    margin: 0;
+
+    text-shadow:
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff;
+}
+
+/* FRANJA NEGRA */
+
+.subtitle-bar {
+
+    background-color: #111;
+
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    margin-bottom: 50px;
+
+    width: 100%;
+
+    box-shadow:
+        0px 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* SUBTITULO */
+
+.subtitle {
+
+    color: white;
+
+    font-size: 1.15rem;
+
+    font-weight: 600;
+
+    margin: 0;
+}
+
+/* CARDS */
+
+.pokemon-card {
+
+    background-color: white;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    border: none;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+        0px 10px 25px rgba(0, 0, 0, 0.12);
+
+    height: 100%;
+}
+
+.pokemon-card:hover {
+
+    transform:
+        translateY(-10px) scale(1.03);
+
+    box-shadow:
+        0px 18px 35px rgba(0, 0, 0, 0.2);
+}
+
+.pokemon-image-container {
+
+    background:
+        linear-gradient(180deg,
+            #f7f7f7 0%,
+            #ececec 100%);
+
+    padding-top: 30px;
+    padding-bottom: 25px;
+
+    text-align: center;
+
+    border-bottom:
+        1px solid #e5e5e5;
+}
+
+.pokemon-image {
+
+    width: 150px;
+    height: 150px;
+
+    image-rendering: pixelated;
+
+    transition: transform 0.2s ease;
+}
+
+.pokemon-card:hover .pokemon-image {
+
+    transform: scale(1.08);
+}
+
+.card-body {
+
+    padding: 25px;
+}
+
+.pokemon-name {
+
+    font-weight: 800;
+
+    color: #222;
+
+    font-size: 1.5rem;
+
+    text-transform: capitalize;
+
+    margin-bottom: 18px;
+}
+
+/* BADGES */
+
+.pokemon-badge {
+
+    color: white;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+    text-transform: capitalize;
+
+    padding: 9px 14px;
+
+    border-radius: 999px;
+
+    margin-right: 6px;
+
+    border: none;
+
+    letter-spacing: 0.5px;
+}
+
+/* TIPOS */
+
+.type-grass {
+    background-color: #66bb6a;
+}
+
+.type-fire {
+    background-color: #ff7043;
+}
+
+.type-water {
+    background-color: #42a5f5;
+}
+
+.type-electric {
+    background-color: #fbc02d;
+    color: #222;
+}
+
+.type-poison {
+    background-color: #ab47bc;
+}
+
+.type-bug {
+    background-color: #9ccc65;
+    color: #222;
+}
+
+.type-normal {
+    background-color: #bdbdbd;
+    color: #222;
+}
+
+.type-ground {
+    background-color: #d4a373;
+}
+
+.type-fairy {
+    background-color: #f48fb1;
+}
+
+.type-fighting {
+    background-color: #e53935;
+}
+
+.type-psychic {
+    background-color: #ec407a;
+}
+
+.type-rock {
+    background-color: #8d6e63;
+}
+
+.type-ghost {
+    background-color: #7e57c2;
+}
+
+.type-ice {
+    background-color: #80deea;
+    color: #222;
+}
+
+.type-dragon {
+    background-color: #5e35b1;
+}
+
+.type-dark {
+    background-color: #424242;
+}
+
+.type-steel {
+    background-color: #90a4ae;
+    color: #222;
+}
+
+.type-flying {
+    background-color: #7e97f5;
+}
