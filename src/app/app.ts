@@ -1,12 +1,22 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { PokemonService } from './services/pokemon.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('PokemonTeamBuilderPWA');
+export class App implements OnInit {
+
+  constructor(private pokemonService: PokemonService) {}
+
+  async ngOnInit() {
+
+    const pokemons = await this.pokemonService.getPokemons();
+
+    console.log(pokemons);
+
+  }
+
 }
