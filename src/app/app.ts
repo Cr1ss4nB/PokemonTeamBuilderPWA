@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { PokemonService } from './services/pokemon.service';
 import { Pokemon } from './interfaces/pokemon.interface';
+import { Team } from './interfaces/team.interface';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,12 @@ export class App implements OnInit {
   pokemons: Pokemon[] = [];
 
     filteredPokemons: Pokemon[] = [];
+
+    teams: Team[] = [];
+
+    newTeamName: string = '';
+
+    selectedTeamId: number | null = null;
 
     searchText: string = '';
 
@@ -99,4 +106,53 @@ export class App implements OnInit {
   });
 
   }
+
+  createTeam() {
+
+    const trimmedName = this.newTeamName.trim();
+
+    if (!trimmedName) {
+      alert('El nombre del equipo es obligatorio');
+      return;
+    }
+
+    if (this.teams.length >= 9) {
+      alert('Solo puedes crear máximo 9 equipos');
+      return;
+    }
+
+    const newTeam: Team = {
+      id: Date.now(),
+      name: trimmedName,
+      pokemons: []
+    };
+
+    this.teams.push(newTeam);
+
+    this.newTeamName = '';
+
+  }
+
+  deleteTeam(teamId: number) {
+
+    const confirmDelete = confirm(
+      '¿Seguro que deseas eliminar este equipo?'
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    this.teams = this.teams.filter(
+      team => team.id !== teamId
+    );
+
+  }
+
+  selectTeam(teamId: number) {
+
+    this.selectedTeamId = teamId;
+
+  }
+
 }

@@ -78,6 +78,103 @@
 
     </div>
   </div>
+  <div class="container mb-5">
+
+    <div class="card p-4 shadow-sm">
+
+      <h3 class="mb-4 text-center">
+        Equipos Pokémon
+      </h3>
+
+      <div class="row g-3 align-items-center">
+
+        <div class="col-md-6">
+
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del equipo"
+            [(ngModel)]="newTeamName"
+          >
+
+        </div>
+
+        <div class="col-md-3">
+
+          <button
+            class="btn btn-danger w-100"
+            (click)="createTeam()"
+          >
+            Crear Equipo
+          </button>
+
+        </div>
+
+        <div class="col-md-3 text-center">
+
+          <strong>
+            {{ teams.length }}/9 equipos
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="container mb-5">
+
+    <div class="row g-4">
+
+      <div
+        class="col-md-6 col-lg-4"
+        *ngFor="let team of teams"
+      >
+
+        <div
+          class="card h-100 shadow-sm border-3"
+          [class.border-danger]="selectedTeamId === team.id"
+        >
+
+          <div class="card-body">
+
+            <h4 class="card-title">
+              {{ team.name }}
+            </h4>
+
+            <p>
+              Pokémon:
+              {{ team.pokemons.length }}/6
+            </p>
+
+            <div class="d-flex gap-2">
+
+              <button
+                class="btn btn-dark btn-sm"
+                (click)="selectTeam(team.id)"
+              >
+                Seleccionar
+              </button>
+
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="deleteTeam(team.id)"
+              >
+                Eliminar
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
   <div class="container pb-5">
     <div class="row g-4">
