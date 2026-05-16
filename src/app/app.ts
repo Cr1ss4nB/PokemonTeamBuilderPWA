@@ -151,8 +151,64 @@ export class App implements OnInit {
 
   selectTeam(teamId: number) {
 
+    if (this.selectedTeamId === teamId) {
+      this.selectedTeamId = null;
+      return;
+    }
+
     this.selectedTeamId = teamId;
 
   }
 
+  addPokemonToTeam(pokemon: Pokemon) {
+
+    if (this.selectedTeamId === null) {
+      alert('Debes seleccionar un equipo');
+      return;
+    }
+
+    const team = this.teams.find(
+      team => team.id === this.selectedTeamId
+    );
+
+    if (!team) {
+      return;
+    }
+
+    const pokemonExists = team.pokemons.some(
+      teamPokemon => teamPokemon.id === pokemon.id
+    );
+
+    if (pokemonExists) {
+      alert('Este Pokémon ya está en el equipo');
+      return;
+    }
+
+    if (team.pokemons.length >= 6) {
+      alert('Un equipo solo puede tener 6 Pokémon');
+      return;
+    }
+
+    team.pokemons.push(pokemon);
+
+  }
+
+  removePokemonFromTeam(
+    teamId: number,
+    pokemonId: number
+  ) {
+
+    const team = this.teams.find(
+      team => team.id === teamId
+    );
+
+    if (!team) {
+      return;
+    }
+
+    team.pokemons = team.pokemons.filter(
+      pokemon => pokemon.id !== pokemonId
+    );
+
+  }
 }
