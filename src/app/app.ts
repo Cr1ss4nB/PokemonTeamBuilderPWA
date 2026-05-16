@@ -15,29 +15,29 @@ export class App implements OnInit {
 
   pokemons: Pokemon[] = [];
 
-  filteredPokemons: Pokemon[] = [];
+    filteredPokemons: Pokemon[] = [];
 
-  searchText: string = '';
+    searchText: string = '';
 
-  selectedType: string = '';
+    selectedType: string = '';
 
-  pokemonTypes: string[] = [
-    'grass',
-    'poison',
-    'fire',
-    'water',
-    'bug',
-    'normal',
-    'electric',
-    'ground',
-    'fairy',
-    'fighting',
-    'psychic',
-    'rock',
-    'ghost',
-    'ice',
-    'dragon'
-  ];
+    pokemonTypes: string[] = [
+      'grass',
+      'poison',
+      'fire',
+      'water',
+      'bug',
+      'normal',
+      'electric',
+      'ground',
+      'fairy',
+      'fighting',
+      'psychic',
+      'rock',
+      'ghost',
+      'ice',
+      'dragon'
+    ];
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -46,30 +46,28 @@ export class App implements OnInit {
     console.log('INICIA APP');
 
     this.pokemons = await this.pokemonService.getPokemons();
+    this.filteredPokemons = this.pokemons;
 
     console.log(this.pokemons);
-
-    this.filteredPokemons = this.pokemons;
 
   }
 
   filterPokemons() {
 
-    this.filteredPokemons = this.pokemons.filter(pokemon => {
+  this.filteredPokemons = this.pokemons.filter(pokemon => {
 
-      const matchesName =
-        pokemon.name
-          .toLowerCase()
-          .includes(this.searchText.toLowerCase());
+    const matchesName =
+      pokemon.name
+        .toLowerCase()
+        .includes(this.searchText.toLowerCase());
 
-      const matchesType =
-        this.selectedType === '' ||
-        pokemon.types.includes(this.selectedType);
+    const matchesType =
+      this.selectedType === '' ||
+      pokemon.types.includes(this.selectedType);
 
-      return matchesName && matchesType;
+    return matchesName && matchesType;
 
-    });
+  });
 
   }
-
 }
